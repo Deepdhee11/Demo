@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DemoApplication.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DemoApplication.Views"
+    xmlns:strings="clr-namespace:DemoApplication.Resources.Strings"
+    Shell.ForegroundColor="{AppThemeBinding Dark={StaticResource White},Light={StaticResource Black}}"
+    Shell.FlyoutBehavior="Flyout"
+    Title="{x:Static strings:AppResources.DemoApplication}">
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout HeightRequest="200">
+            <Image
+             Source="dotnet_bot.png"
+             WidthRequest="100"/>
+            <Label
+             Text="{x:Static strings:AppResources.DemoApplication}"
+             HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout>
+            <Label
+             Text="{x:Static strings:AppResources.Version}"
+             VerticalTextAlignment="End"
+             HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+    <FlyoutItem Title="{x:Static strings:AppResources.Home}">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ProfileView}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static strings:AppResources.Profile}">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:ProfileMenuView}" />
+        </Tab>
+    </FlyoutItem>
+    <MenuItem Text="{x:Static strings:AppResources.Logout}" Clicked="Logout_Clicked"></MenuItem>
+</Shell>

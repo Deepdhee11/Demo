@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApplication.Views.DetailView"
+             xmlns:strings="clr-namespace:DemoApplication.Resources.Strings"
+             Title="{x:Static strings:AppResources.Details}"
+             BackgroundColor="{DynamicResource PageBgColor}">
+    <Grid
+        RowDefinitions="150,30,30,*"
+        RowSpacing="10"
+        Margin="15,50,15,20">
+        <Image
+            VerticalOptions="Start"
+            Source="{Binding UserDetail.Avatar , Mode=TwoWay}" Aspect="AspectFit">
+            <Image.Clip>
+                <EllipseGeometry Center="150,80" RadiusX="60" RadiusY="60"/>
+            </Image.Clip>
+        </Image>
+        <ImageButton Source="editprofile.png" 
+               Grid.Row="0"
+               WidthRequest="25"
+               HeightRequest="25"
+               BackgroundColor="Transparent"
+               Command="{Binding EditProfileCommand}"/>
+        <Label
+           Grid.Row="1" 
+           HorizontalTextAlignment="Center"
+           FontAttributes="Bold"
+           TextColor="Black"
+           FontSize="20">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{Binding UserDetail.FirstName}"></Span>
+                    <Span Text=" "/>
+                    <Span Text="{Binding UserDetail.Last_name}"></Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label
+            HorizontalTextAlignment="Center"
+            Grid.Row="2"
+           Text="{Binding UserDetail.Email}"/>
+
+        <Button
+            Grid.Row="3"
+            Text="Update"
+            VerticalOptions="EndAndExpand"
+            Command="{Binding UpdateCommand}"/>
+    </Grid>
+</ContentPage>

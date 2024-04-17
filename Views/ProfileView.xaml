@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApplication.Views.ProfileView"
+             xmlns:local="clr-namespace:DemoApplication.ViewModels"
+             xmlns:strings="clr-namespace:DemoApplication.Resources.Strings"
+             Title="{x:Static strings:AppResources.Home}"
+             BackgroundColor="{DynamicResource PageBgColor}">
+    <Grid x:Name="HomeGrid"
+          RowDefinitions="50,*"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        <SearchBar HorizontalOptions="FillAndExpand"
+                   Placeholder="{x:Static strings:AppResources.Search}"
+                   Grid.Row="0"
+                   BackgroundColor="{x:StaticResource White}"
+                   Margin="8"
+                   TextChanged="SearchBar_TextChanged">
+        </SearchBar>
+        <RefreshView Grid.Row="1" 
+                     IsRefreshing="{Binding IsRefresh}"
+                     Command="{Binding RefreshCommand}">
+            <Grid Margin="0">
+                <CollectionView HorizontalOptions="FillAndExpand"
+                                ItemsSource="{Binding UserDetail.Data}"
+                                x:Name="UserList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="LightGrey"
+                                
+                                HorizontalOptions="FillAndExpand"
+                                ColumnSpacing="10"
+                                Margin="5"
+                                Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       Source="{Binding Avatar}" 
+                                       Aspect="AspectFit">
+                                    <Image.Clip>
+                                        <EllipseGeometry Center="50,55" RadiusX="40" RadiusY="40"/>
+                                    </Image.Clip>
+                                </Image>
+                                <Label
+                                    Grid.Column="1"
+                                    HorizontalTextAlignment="Center"
+                                    FontAttributes="Bold"
+                                    TextColor="Black"
+                                    FontSize="14"
+                                    HorizontalOptions="StartAndExpand"
+                                    VerticalTextAlignment="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FirstName}"></Span>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Last_name}"></Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label
+                                     VerticalTextAlignment="Center"
+                                     Grid.Column="2"
+                                     Text="{Binding Email}"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference UserList}, Path=BindingContext.NavigateToDetailCommand}" 
+                                                          CommandParameter="{Binding}" >
+
+                                    </TapGestureRecognizer>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </RefreshView>
+    </Grid>
+</ContentPage>

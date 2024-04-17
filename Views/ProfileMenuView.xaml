@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApplication.Views.ProfileMenuView"
+             xmlns:strings="clr-namespace:DemoApplication.Resources.Strings"
+             Title="{x:Static strings:AppResources.Profile}"
+             BackgroundColor="{DynamicResource PageBgColor}">
+    <Grid
+        RowDefinitions="150,30,30,*"
+        RowSpacing="10"
+        Margin="15,50,15,20">
+        <Image
+            VerticalOptions="Start"
+            Source="{Binding ProfileData.Avatar , Mode=TwoWay}" Aspect="AspectFit">
+            <Image.Clip>
+                <EllipseGeometry Center="165,75" RadiusX="65" RadiusY="65"/>
+            </Image.Clip>
+        </Image>
+        <Label
+           Grid.Row="1" 
+           HorizontalTextAlignment="Center"
+           FontAttributes="Bold"
+           TextColor="Black"
+           FontSize="25">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{Binding ProfileData.FirstName}"></Span>
+                    <Span Text=" "/>
+                    <Span Text="{Binding ProfileData.Last_name}"></Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label
+            HorizontalTextAlignment="Center"
+            Grid.Row="2"
+           Text="{Binding ProfileData.Email}"/>
+    </Grid>
+</ContentPage>

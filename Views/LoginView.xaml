@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApplication.Views.LoginView"
+             xmlns:local="clr-namespace:DemoApplication.ViewModels"
+             xmlns:strings="clr-namespace:DemoApplication.Resources.Strings"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.NavBarIsVisible="False"
+             Title="{x:Static strings:AppResources.Login}"
+             x:DataType="local:LoginViewModel"
+             BackgroundColor="{DynamicResource PageBgColor}">
+    <VerticalStackLayout
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand"
+        Spacing="15">
+        <Entry
+            Placeholder="{x:Static strings:AppResources.UserEmail}"
+            Text="{Binding UserName}">
+            <Entry.Behaviors>
+                <toolkit:EmailValidationBehavior 
+                    IsValid="{Binding IsUserEmailValid}"
+                    Flags="ValidateOnValueChanged">
+                </toolkit:EmailValidationBehavior>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry
+            Placeholder="{x:Static strings:AppResources.Password}"
+            Text="{Binding Password}"
+             IsPassword="True"/>
+        <HorizontalStackLayout>
+            <CheckBox IsChecked="{Binding IsTermsChecked, Mode=TwoWay}"
+                      Color="#003145"/>
+            <Label
+                Text="{x:Static strings:AppResources.TermsConditions}"
+                VerticalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <Button Text= "{x:Static strings:AppResources.Login}"
+                Command="{Binding LoginCommand}">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding UserName,Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="True"/>
+                        <BindingCondition Binding="{Binding Password,Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="True"/>
+                        <BindingCondition Binding="{Binding IsTermsChecked}" Value="True"/>
+                        <BindingCondition Binding="{Binding IsUserEmailValid}" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
+    </VerticalStackLayout>
+</ContentPage>
